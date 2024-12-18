@@ -1,7 +1,6 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <cmath>
-#include <string>
 #include "../common/common.h"
 
 void checkresult(float *hostRef, float *gpuRef, const int N)
@@ -198,7 +197,7 @@ int main(int argc, char **argv)
 
 	// kernel pointer and descriptor
 	void(*kernel)(float *, float *, int, int);
-	std::string kernelName;
+	char *kernelName;
 
 	switch(iKernel)
 	{
