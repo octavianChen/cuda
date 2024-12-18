@@ -152,7 +152,7 @@ __global__ void transposeDiagonalCol(float *out, float *in, const int nx, const 
 		out[iy * nx + ix] = in[ix * ny + iy];
 }
 
-int main(argc, char **argv)
+int main(int argc, char **argv)
 {
 	int dev = 0;
 	cudaDeviceProp deviceProp;
