@@ -1,5 +1,8 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
+#include <cmath>
+#include <string>
+#include "../common/common.h"
 
 void checkresult(float *hostRef, float *gpuRef, const int N)
 {
@@ -22,7 +25,7 @@ void initialData(float *ip, int size)
 	int i;
 	for(i = 0; i < size; i++)
 	{
-		ip[i] = (float)(randn() & 0xFF) / 10.0f;
+		ip[i] = (float)(std::rand() & 0xFF) / 10.0f;
 	}
 	return;
 }
@@ -190,12 +193,12 @@ int main(argc, char **argv)
 	warmup<<<grid, block>>>(d_C, d_A, nx, ny);
 	cudaDeviceSynchronize();
 	double iElaps = seconds() - iStart;
-	print("warmup elapsed %f sec\n", iElaps);
+	printf("warmup elapsed %f sec\n", iElaps);
 	cudaGetLastError();
 
 	// kernel pointer and descriptor
 	void(*kernel)(float *, float *, int, int);
-	char *kernelName;
+	std::string kernelName;
 
 	switch(iKernel)
 	{
@@ -241,7 +244,7 @@ int main(argc, char **argv)
 	iElaps = seconds() - iStart;
 
 	float ibnd = 2 * nx * ny * sizeof(float) / 1e9 / iElaps;
-	print(f"%s elapsed %d sec <<<grid (%d, %d), block (%d, %d)>>> effective bandwidth %f GB\n", kernelName, iElaps, grid.x, grid.y, block.x, block.y, ibnd);
+	printf("%s elapsed %d sec <<<grid (%d, %d), block (%d, %d)>>> effective bandwidth %f GB\n", kernelName, iElaps, grid.x, grid.y, block.x, block.y, ibnd);
 	if(iKernel > 1)
 	{
 		cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
