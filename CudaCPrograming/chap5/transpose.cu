@@ -243,7 +243,7 @@ int main(int argc, char **argv)
 	iElaps = seconds() - iStart;
 
 	float ibnd = 2 * nx * ny * sizeof(float) / 1e9 / iElaps;
-	printf("%s elapsed %d sec <<<grid (%d, %d), block (%d, %d)>>> effective bandwidth %f GB\n", kernelName, iElaps, grid.x, grid.y, block.x, block.y, ibnd);
+	printf("%s elapsed %f sec <<<grid (%d, %d), block (%d, %d)>>> effective bandwidth %f GB\n", kernelName, iElaps, grid.x, grid.y, block.x, block.y, ibnd);
 	if(iKernel > 1)
 	{
 		cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost);
