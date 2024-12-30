@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 	CHECK(cudaGetLastError());
 
 	CHECK(cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost));
-	CHECK(checkResult(hostRef, gpuRef, nxy));
+	checkResult(hostRef, gpuRef, nxy);
 
 	cudaFree(d_A);
 	cudaFree(d_B);
