@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 	sumMatrixOnGPU2D<<<grid, block>>>(d_A, d_B, d_C, nx, ny);
 	CHECK(cudaDeviceSynchronize());
 	iElaps = seconds() - iStart;
-	printf("sumMatrixOnGPU2D <<<(%d, %d), (%d, %d)>>> elapsed %d ms\n", grid.x, grid.y, block.x, block.y, iElaps);
+	printf("sumMatrixOnGPU2D <<<(%d, %d), (%d, %d)>>> elapsed %d us\n", grid.x, grid.y, block.x, block.y, iElaps);
 	CHECK(cudaGetLastError());
 
 	CHECK(cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost));
